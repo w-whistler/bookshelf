@@ -1,10 +1,17 @@
 {
   "name": "bookshell",
+  "description": "Book shell management application",
+  "author": {
+    "email": "gb.jaramillo20@gmail.com",
+    "name": "Luis Perez"
+  },
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "axios": "^0.27.2",
     "cra-template-react-typescript-redux-saga": "0.1.1",
     "react": "^18.1.0",
+    "react-beautiful-dnd": "^13.1.0",
     "react-dom": "^18.1.0",
     "react-scripts": "5.0.1"
   },
@@ -36,5 +43,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "eslint": "^8.14.0"
   }
 }
