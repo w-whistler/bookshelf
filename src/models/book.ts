@@ -1,23 +1,23 @@
 export interface IBookSearchParams {
-  q?: string;
-  title?: string;
-  author?: string;
-  page?: number;
-  limit?: number;
+  q: string;
+  startIndex?: number;  // Default 0
+  maxResults?: number;  // Default 10
 }
 
 export interface IBook {
+  id: string;
   title: string;
-  authorName: string[];
-  firstPublishYear: number;
-  numberOfPagesMedian: number;
-  subject: string[];
-  publishPlace: string[];
+  subtitle?: string;
+  publishedDate: string;
+  previewLink: string;
+  pageCount: number;
+  thumbnail: string;
+  publisher: string;
+  authors?: string[];
 }
 
 export interface IBookState {
   loading: boolean;
-  numFound: number;
-  start: number;
+  totalItems: number;
   books: IBook[];
 }

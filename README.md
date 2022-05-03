@@ -1,3 +1,21 @@
+# Book Shelf Application
+Implement an application "Book shelf".
+
+## Functionality:
+- loading list of books from a remote source
+- reordering books via drag-n-drop
+- removing book from shelf
+
+## Requirements:
+- you have to use React, Redux and Redux-Saga
+- you have to use React functional components with hooks instead of classes and HOCs
+- books list should be stored in Redux and updated using sagas
+- styling and appearance is up to you, but it should resemble real book shelf
+- provide your results as a public GitHub repo
+
+## Notes:
+- to get list of books you can use any open API you want or even create your own books list on the Github Gist or wherever you want.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

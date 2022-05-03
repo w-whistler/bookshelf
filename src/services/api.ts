@@ -1,7 +1,7 @@
-const BASE_URL = 'http://openlibrary.org';
+const BASE_URL = 'https://www.googleapis.com/books/v1';
 
 const API = {
-  search: `${BASE_URL}/search`,
+  volumes: `${BASE_URL}/volumes`,
 };
 
 export { API };

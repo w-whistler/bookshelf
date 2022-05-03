@@ -1,30 +1,36 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
+import { IBookSearchParams } from 'src/models/book';
 import { fetchBooks } from 'src/services/books';
 
-import { BOOK_ACTION_TYPES } from '../actions/bookAction';
+import { FETCH_BOOKS, FETCH_BOOKS_FAILED, FETCH_BOOKS_SUCCEED } from '../actions/bookAction.types';
 
-function* fetchBooksSaga() {
+function* fetchBooksSaga({ params }: { type: string; params: IBookSearchParams }) {
   try {
     const {
-      data: { numFound, start, docs, numFoundExact },
-    } = yield call(fetchBooks);
+      data: { items, totalItems },
+    } = yield call(fetchBooks, params);
 
     yield put({
-      type: BOOK_ACTION_TYPES.FETCH_BOOKS_SUCCEED,
+      type: FETCH_BOOKS_SUCCEED,
       payload: {
-        numFound,
-        start,
-        docs,
-        numFoundExact,
+        books: items.map(item => ({
+          ...item.volumeInfo,
+          id: item.id,
+          thumbnail: item.volumeInfo.imageLinks.thumbnail,
+        })),
+        totalItems,
       },
     });
   } catch (error) {
-    console.error('> error: ', error);
+    yield put({
+      type: FETCH_BOOKS_FAILED,
+      error,
+    });
   }
 }
 
 function* fetchBooksWacher() {
-  yield takeEvery(BOOK_ACTION_TYPES.FETCH_BOOKS, fetchBooksSaga);
+  yield takeEvery(FETCH_BOOKS, fetchBooksSaga);
 }
 
 export { fetchBooksWacher };
