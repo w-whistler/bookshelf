@@ -1,18 +1,18 @@
-import DeleteIcon from "@mui/icons-material/Delete";
-import { Card, CardContent, IconButton, Link, Typography } from "@mui/material";
-import { makeStyles } from "@mui/styles";
-import { Box } from "@mui/system";
-import moment from "moment";
-import { useCallback } from "react";
-import { DraggableProvided, DraggableStateSnapshot } from "react-beautiful-dnd";
-import { IBook } from "src/models/book";
+import DeleteIcon from '@mui/icons-material/Delete';
+import { Card, CardContent, IconButton, Link, Typography } from '@mui/material';
+import { makeStyles } from '@mui/styles';
+import { Box } from '@mui/system';
+import moment from 'moment';
+import { useCallback } from 'react';
+import { DraggableProvided, DraggableStateSnapshot } from 'react-beautiful-dnd';
+import { IBook } from 'src/models/book';
 
 type BookItemProps = {
   book: IBook;
   draggableProvided: DraggableProvided;
   draggableSnapshot: DraggableStateSnapshot;
   onDeleteBook: (bookId: string) => void;
-}
+};
 
 const useStyles = makeStyles({
   cardContent: {
@@ -25,39 +25,34 @@ const useStyles = makeStyles({
   },
 });
 
-const BookItem = ({
-  book,
-  draggableProvided,
-  draggableSnapshot,
-  onDeleteBook,
-}: BookItemProps) => {
+const BookItem = ({ book, draggableProvided, draggableSnapshot, onDeleteBook }: BookItemProps) => {
   const classes = useStyles();
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const getItemStyle = useCallback((isDragging: boolean, draggableStyle: any) => ({
-    marginBottom: 8,
-    userSelect: "none",
-    ...draggableStyle
-  }), []);
+  const getItemStyle = useCallback(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (isDragging: boolean, draggableStyle: any) => ({
+      marginBottom: 8,
+      userSelect: 'none',
+      ...draggableStyle,
+    }),
+    []
+  );
 
   return (
     <Card
       ref={draggableProvided.innerRef}
       {...draggableProvided.draggableProps}
       {...draggableProvided.dragHandleProps}
-      style={getItemStyle(
-        draggableSnapshot.isDragging,
-        draggableProvided.draggableProps.style
-      )}
+      style={getItemStyle(draggableSnapshot.isDragging, draggableProvided.draggableProps.style)}
     >
       <CardContent className={classes.cardContent}>
         <Box display='flex' alignItems='flex-start' gap={2}>
           <img src={book.thumbnail} width={100} className={classes.thumbnail} />
           <Box py={1} flex={1}>
-            <Link href={book.previewLink} variant='h5' fontWeight='bold' target='_blank'>{book.title}</Link>
-            {book.subtitle && (
-              <Typography variant='h6'>{book.subtitle}</Typography>
-            )}
+            <Link href={book.previewLink} variant='h5' fontWeight='bold' target='_blank'>
+              {book.title}
+            </Link>
+            {book.subtitle && <Typography variant='h6'>{book.subtitle}</Typography>}
             <Typography variant='h6'>
               <b>Author:</b> {book.authors?.join(', ')}
             </Typography>

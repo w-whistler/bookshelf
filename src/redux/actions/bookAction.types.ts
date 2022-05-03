@@ -17,4 +17,4 @@ export type BookActionType = {
     sourceIndex?: number;
     targetIndex?: number;
   };
-}
+};

@@ -1,4 +1,4 @@
-import { IBook } from "src/models/book";
+import { IBook } from 'src/models/book';
 
 export const reorderBooks = (books: IBook[], startIndex: number, endIndex: number) => {
   const result = Array.from(books);

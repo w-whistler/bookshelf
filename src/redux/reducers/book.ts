@@ -30,11 +30,11 @@ export const bookReducer = (state: IBookState = initialState, action: BookAction
         ...state,
         books: reorderBooks(state.books, action.payload.sourceIndex, action.payload.targetIndex),
       };
-    
+
     case REMOVE_BOOK:
       return {
         ...state,
-        books: state.books.filter(book => book.id !== action.payload?.bookId),
+        books: state.books.filter((book) => book.id !== action.payload?.bookId),
       };
 
     default:

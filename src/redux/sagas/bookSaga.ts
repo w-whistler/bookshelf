@@ -13,7 +13,7 @@ function* fetchBooksSaga({ params }: { type: string; params: IBookSearchParams }
     yield put({
       type: FETCH_BOOKS_SUCCEED,
       payload: {
-        books: items.map(item => ({
+        books: items.map((item) => ({
           ...item.volumeInfo,
           id: item.id,
           thumbnail: item.volumeInfo.imageLinks.thumbnail,

@@ -1,7 +1,7 @@
 export interface IBookSearchParams {
   q: string;
-  startIndex?: number;  // Default 0
-  maxResults?: number;  // Default 10
+  startIndex?: number; // Default 0
+  maxResults?: number; // Default 10
 }
 
 export interface IBook {

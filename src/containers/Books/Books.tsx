@@ -11,62 +11,49 @@ import BookItem from './components/BookItem/BookItem';
 
 type BooksProps = ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>;
 
-const Books = ({
-  loadingBooks,
-  books,
-  fetchBooks,
-  reorderBooks,
-  deleteBook,
-}: BooksProps) => {
+const Books = ({ loadingBooks, books, fetchBooks, reorderBooks, deleteBook }: BooksProps) => {
   const [keyword, setKeyword] = useState('');
 
   const onSearch = useCallback(() => {
     fetchBooks({ q: keyword, maxResults: 20 });
-  }, [fetchBooks, keyword])
+  }, [fetchBooks, keyword]);
 
-  const onDragEnd = useCallback((result: DropResult) => {
-    if (!result.destination) return;
+  const onDragEnd = useCallback(
+    (result: DropResult) => {
+      if (!result.destination) return;
 
-    reorderBooks(result.source.index, result.destination.index);
-  }, [reorderBooks]);
+      reorderBooks(result.source.index, result.destination.index);
+    },
+    [reorderBooks]
+  );
 
-
-  const onDeleteBook = useCallback((bookId: string) => {
-    deleteBook(bookId);
-  }, [deleteBook]);
+  const onDeleteBook = useCallback(
+    (bookId: string) => {
+      deleteBook(bookId);
+    },
+    [deleteBook]
+  );
 
   return (
     <Container maxWidth='md'>
       <Box my={2} display='flex' alignItems='center'>
-        <TextField
-          onChange={e => setKeyword(e.target.value)}
-          value={keyword}
-          variant='outlined'
-          placeholder='Search keyword'
-          fullWidth
-        />
-        <Button variant='contained' sx={{ marginLeft: 1 }} onClick={onSearch}>Search</Button>
+        <TextField onChange={(e) => setKeyword(e.target.value)} value={keyword} variant='outlined' placeholder='Search keyword' fullWidth />
+        <Button variant='contained' sx={{ marginLeft: 1 }} onClick={onSearch}>
+          Search
+        </Button>
       </Box>
       {loadingBooks ? (
         <LoadingSpinner />
       ) : (
         <Box mt={2}>
           <DragDropContext onDragEnd={onDragEnd}>
-            <Droppable droppableId="droppable">
+            <Droppable droppableId='droppable'>
               {(provided) => (
-                <div
-                  {...provided.droppableProps}
-                  ref={provided.innerRef}
-                >
+                <div {...provided.droppableProps} ref={provided.innerRef}>
                   {books.map((book, index) => (
                     <Draggable key={book.id} draggableId={book.id} index={index}>
                       {(provided, snapshot) => (
-                        <BookItem
-                          book={book}
-                          onDeleteBook={onDeleteBook}
-                          draggableProvided={provided}
-                          draggableSnapshot={snapshot}
-                        />
+                        <BookItem book={book} onDeleteBook={onDeleteBook} draggableProvided={provided} draggableSnapshot={snapshot} />
                       )}
                     </Draggable>
                   ))}
